@@ -12,6 +12,19 @@
   const search = document.getElementById('searchDialog');
   const quick = document.getElementById('quickDialog');
   const toast = document.getElementById('toast');
+  const loader = document.getElementById('siteLoader');
+  if (loader) {
+    body.classList.add('is-loading');
+    const hideLoader = () => {
+      setTimeout(() => {
+        loader.classList.add('is-hidden');
+        body.classList.remove('is-loading');
+      }, 850);
+    };
+    if (document.readyState === 'complete') hideLoader();
+    else window.addEventListener('load', hideLoader, { once: true });
+    loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+  }
   let lastFocus = null;
 
   function setLocked(locked) { body.classList.toggle('is-locked', locked); }
